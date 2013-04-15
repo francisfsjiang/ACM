@@ -1,0 +1,54 @@
+#include<stdio.h>
+int n,a[501],w[501][501],f[501][501];
+int main()
+{
+    freopen("in.in","r",stdin);
+    freopen("out.out","w",stdout);
+    int i,j,k,t,min,MAX,MAXK,temp;
+    while(scanf("%d",&n)!=EOF)
+    {
+        for(i=0;i<n;i++)scanf("%d",&a[i]);
+        MAX=999999;
+        for(t=0;t<n;t++)
+        {
+            if(t!=0)
+            {
+                temp=a[t-1];
+                a[t-1]=a[t];
+                a[t]=temp;
+            }
+            for(i=0;i<n;i++)w[i][i]=a[i];
+            for(i=0;i<n-1;i++)for(j=i+1;j<n;j++)w[i][j]=w[i][j-1]+a[j];
+            for(i=0;i<n;i++)
+            {
+                for(j=0;j+i<n;j++)
+                {
+                    if(i==0)f[j][j+i]=0;
+                    else
+                    {
+                        min=f[j][j]+f[j+1][j+i];
+                        for(k=j+1;k<j+i;k++)
+                        {
+                            if(f[j][k]+f[k+1][j+i]<min)min=f[j][k]+f[k+1][j+i];
+                        }
+                        f[j][j+i]=min+w[j][j+i];
+                    }
+                }
+            }
+            if(f[0][n-1]<MAX||(f[0][n-1]==MAX&&MAXK!=0))
+            {
+                MAX=f[0][n-1];
+                MAXK=t;
+            }
+            if(t!=0)
+            {
+                temp=a[t-1];
+                a[t-1]=a[t];
+                a[t]=temp;
+            }
+        }
+        printf("%ld\n",MAX);
+        printf("(%d,%d)\n",MAXK,MAXK+1);
+    }
+    return 0;
+}
