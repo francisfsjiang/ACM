@@ -1,0 +1,84 @@
+#include<stdio.h>
+int m,n,s[1000][1000],date[100000][3];
+int step[4][2]={{1,0},{-1,0},{0,1},{0,-1}};
+main()
+{
+      freopen("plan.in","rt+",stdin);
+      freopen("plan.out","wt+",stdout);
+      int i,j,xb,yb,xe,ye,x,y,z,head=0,end=1;
+      scanf("%d%d%d%d%d%d",&m,&n,&xb,&yb,&xe,&ye);
+      for(i=0;i<=n+1;i++)
+      {
+                         s[0][i]=-1;
+                         s[m+1][i]=-1;
+      }
+      for(i=1;i<=m;i++)
+      {
+                         s[i][0]=-1;
+                         s[i][n+1]=-1;
+      }
+      for(i=1;i<=m;i++)
+      {
+                       for(j=1;j<=n;j++)
+                       {
+                                        scanf("%d",&s[i][j]);
+                       }
+      }
+      s[xb][yb]=1;
+      date[0][0]=xb;
+      date[0][1]=yb;
+      date[0][2]=1;
+      for(;;)
+      {
+           if(head<end)
+           {
+                       for(i=0;i<=3;i++)
+                       {
+                                        x=date[head][0];
+                                        y=date[head][1];
+                                        z=date[head][2];
+                                        if(x+step[i][0]==xe&&y+step[i][1]==ye)
+                                        {
+                                                                              head=end;
+                                                                              s[x+step[i][0]][y+step[i][1]]=z+1;
+                                                                              date[end][0]=x+step[i][0];
+                                                                              date[end][1]=y+step[i][1];
+                                                                              date[end][2]=z+1;
+                                                                              end++;
+                                                                              break;
+                                        }
+                                        else
+                                        {
+                            if(s[x+step[i][0]][y+step[i][1]]==0)
+                            {
+                                                                s[x+step[i][0]][y+step[i][1]]=z+1;
+                                                                date[end][0]=x+step[i][0];
+                                                                date[end][1]=y+step[i][1];
+                                                                date[end][2]=z+1;
+                                                                end++;
+                            }
+                                        }
+                       }
+                       head++;
+           }
+           else break;
+      }
+      for(i=0;i<=3;i++)
+      {
+                         for(j=0;j<=end;j++)
+                         {
+                                            printf("%d ",date[j][i]);
+                         }
+                         printf("\n");
+      }
+      for(i=0;i<=m+1;i++)
+      {
+                         for(j=0;j<=n+1;j++)
+                         {
+                                            printf("%2d ",s[i][j]);
+                         }
+                         printf("\n");
+      }
+      printf("%d\n",s[xe][ye]);
+      return(0);
+}

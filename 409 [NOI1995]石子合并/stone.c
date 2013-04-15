@@ -1,0 +1,62 @@
+#include<stdio.h>
+main()
+{
+      freopen("stone.in","r",stdin);
+      freopen("stone.out","w",stdout);
+      int n,i,j,k,data[110][110],temp,max,mark[110][110],maxk;
+      scanf("%d",&n);
+      for(i=0;i<n;i++)scanf("%d",&data[1][i]);
+      for(i=0;i<n;i++)mark[1][i]=0;
+
+      for(i=2;i<=n;i++)
+      {
+          for(j=0;j<n;j++)
+          {
+              max=999999999;
+              maxk=0;
+              for(k=1;k<i;k++)
+              {
+                   temp=data[k][j]+data[i-k][(j+k)%n]+mark[k][j]+mark[i-k][(j+k)%n];
+                   if(temp<max)
+                   {
+                               max=temp;
+                               maxk=k;
+                   }
+              }
+              data[i][j]=data[maxk][j]+data[i-maxk][(j+maxk)%n];
+              mark[i][j]=max;
+          }
+      }
+      max=mark[n][0];
+      for(j=0;j<n;j++)
+      {
+                      if(mark[n][j]<max)max=mark[n][j];
+      }
+      printf("%d ",max);
+      for(i=2;i<=n;i++)
+      {
+          for(j=0;j<n;j++)
+          {
+              max=0;
+              maxk=0;
+              for(k=1;k<i;k++)
+              {
+                   temp=data[k][j]+data[i-k][(j+k)%n]+mark[k][j]+mark[i-k][(j+k)%n];
+                   if(temp>max)
+                   {
+                               max=temp;
+                               maxk=k;
+                   }
+              }
+              data[i][j]=data[maxk][j]+data[i-maxk][(j+maxk)%n];
+              mark[i][j]=max;
+          }
+      }
+      max=mark[n][0];
+      for(j=0;j<n;j++)
+      {
+                      if(mark[n][j]>max)max=mark[n][j];
+      }
+      printf("%d",max);
+      return(0);
+}

@@ -1,0 +1,40 @@
+#include<stdio.h>
+main()
+{
+      freopen("tree.in","rt+",stdin);
+      freopen("tree.out","wt+",stdout);
+      int g[100][100],used[100]={0};
+      int i,j,k,n,edge,x,y,z,min,minn,sum;
+      scanf("%d%d",&n,&edge);
+      for(i=0;i<edge;i++)
+      {
+                         scanf("%d%d%d",&x,&y,&z);
+                         g[x][y]=z;
+                         g[y][x]=z;
+      }
+      used[1]=1;
+      for(i=1;i<=n-2;i++)//Ñ°ÕÒ°²È«±ß 
+      {
+                         min=10000;
+                         minn=0;
+                       for(j=1;j<=n;j++)
+                       {
+                                        if(used[j]==1)
+                                        {
+                                                      for(k=1;k<=n;k++)
+                                                      {
+                                                                       if(used[k]==0&&g[j][k]!=0&&g[j][k]<min)
+                                                                       {
+                                                                                              min=g[j][k];
+                                                                                              minn=k;
+                                                                       }
+                                                      }
+                                        }
+                       }
+                       used[minn]=1;
+                       sum+=min;
+      }
+      printf("%d\n",sum);
+      return(0);
+}
+      

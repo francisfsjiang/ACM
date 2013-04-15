@@ -1,0 +1,174 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+    freopen("in.in","r",stdin);
+    freopen("out.out","w",stdout);
+    int blocks[300][300];
+    int posx,posy;
+    char s1[300],s2[300];
+    int i,j,n,last,sign,x,y,k;
+    int temppos;
+    memset(blocks,0,sizeof(blocks));
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
+    {
+        blocks[i][0]=1;
+        blocks[i][1]=i;
+    }
+    while(1)
+    {
+        scanf("%s",s1);
+        scanf("%d",&x);
+        scanf("%s",s2);
+        scanf("%d",&y);
+        if(x==y)continue;
+        for(i=0;i<n;i++)
+        {
+                for(j=1;j<=blocks[i][0];j++)
+                {
+                    if(blocks[i][j]==x)posx=i;
+                    else if(blocks[i][j]==y)posy=i;
+                }
+        }
+        if(posx==posy)continue;
+        if(s1[0]=='q')
+        {
+            for(i=0;i<n;i++)
+            {
+                printf("%d:",i);
+                for(j=1;j<=blocks[i][0];j++)printf(" %d",blocks[i][j]);
+                printf("\n");
+            }
+            break;
+        }
+        else if(s1[0]=='m'&&s2[1]=='n')
+        {
+            sign=0;
+            last=0;
+            for(i=1;i<=blocks[posy][0];i++)//clear
+            {
+                if(blocks[posy][i]==y)
+                {
+                    sign=1;
+                    continue;
+                }
+                if(sign==0)continue;
+                blocks[blocks[posy][i]][0]++;
+                blocks[blocks[posy][i]][1]=i;
+                last++;
+            }
+            blocks[posy][0]-=last;
+            sign=0;
+            last=0;
+            for(i=1;i<=blocks[posx][0];i++)//clear
+            {
+                if(blocks[posx][i]==x)
+                {
+                    sign=1;
+                    continue;
+                }
+                if(sign==0)continue;
+                blocks[blocks[posx][i]][0]++;
+                blocks[blocks[posx][i]][1]=i;
+                last++;
+            }
+            blocks[posx][0]-=last;
+            blocks[posx][0]--;
+            blocks[posy][0]++;
+            blocks[posy][blocks[posy][0]]=x;
+        }
+        else if(s1[0]=='m'&&s2[1]=='v')
+        {
+            sign=0;
+            last=0;
+            for(i=1;i<=blocks[posx][0];i++)//clear
+            {
+                if(blocks[posx][i]==x)
+                {
+                    sign=1;
+                    continue;
+                }
+                if(sign==0)continue;
+                blocks[blocks[posx][i]][0]++;
+                blocks[blocks[posx][i]][1]=i;
+                last++;
+            }
+             blocks[posx][0]-=last;
+            blocks[posx][0]--;
+            blocks[posy][0]++;
+            blocks[posy][blocks[posy][0]]=x;
+        }
+        else if(s1[0]=='p'&&s2[1]=='n')
+        {
+            for(i=1;i<=blocks[posy][0];i++)//clear
+            {
+                if(blocks[posy][i]==y)
+                {
+                    for(k=0;k<n;k++)
+                    {
+                        for(j=1;j<=blocks[k][0];j++)
+                        {
+                        if(blocks[k][j]==blocks[posy][1+i])
+                        {
+                            temppos=k;
+                            break;
+                        }
+                        }
+                    }
+                    for(j=i+1;j<=blocks[posy][0];j++)
+                    {
+                        blocks[temppos][0]++;
+                        blocks[temppos][blocks[temppos][0]]=blocks[posy][j];
+                        last++;
+                    }
+                    blocks[posy][0]-=last;
+                    break;
+                }
+            }
+            sign=0;
+            last=0;
+            for(i=1;i<=blocks[posx][0];i++)
+            {
+                if(blocks[posx][i]==x)
+                {
+                    for(j=i;i<=blocks[posx][0];i++)
+                    {
+                        blocks[posy][0]++;
+                        blocks[posy][blocks[posy][0]]=blocks[posx][j];
+                        last++;
+                    }
+                    break;
+                }
+            }
+            blocks[posx][0]-=last;
+        }
+        else
+        {
+            sign=0;
+            last=0;
+            for(i=1;i<=blocks[posx][0];i++)
+            {
+                if(blocks[posx][i]==x)
+                {
+                    for(j=i;j<=blocks[posx][0];j++)
+                    {
+                        blocks[y][0]++;
+                        blocks[y][blocks[y][0]]=blocks[posx][j];
+                        last++;
+                    }
+                    break;
+                }
+            }
+            blocks[posx][0]-=last;
+        }
+        /*for(i=0;i<n;i++)
+            {
+                printf("%d:",i);
+                for(j=1;j<=blocks[i][0];j++)printf(" %d",blocks[i][j]);
+                printf("\n");
+            }
+            printf("\n");*/
+    }
+    return 0;
+}

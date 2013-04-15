@@ -1,0 +1,43 @@
+#include<stdio.h>
+main()
+{
+      freopen("Floyd.in","rt+",stdin);
+      freopen("Floyd.out","wt+",stdout);
+      int dist[100][100],n,edge,i,j,k,min,x,y,date;
+      scanf("%d%d",&n,&edge);
+      for(i=0;i<edge;i++)
+      {
+                         scanf("%d%d",&x,&y);
+                         scanf("%d",&dist[x][y]);
+      }
+      for(i=1;i<=n;i++)for(j=1;j<=n;j++)if(dist[i][j]==0)dist[i][j]=1000;
+      for(i=1;i<=n;i++)
+      {
+                       for(j=1;j<=n;j++)
+                       {
+                                        printf("%3d ",dist[i][j]);
+                       }
+                       printf("\n");
+      }
+      for(j=1;j<=n;j++)
+      {
+                       for(i=1;i<=n;i++)
+                       {
+                                        for(k=1;k<=n;k++)
+                                        {
+                                                         if(i==j)continue;
+                                                         date=dist[i][k]+dist[k][j];
+                                                         if(date<dist[i][j])dist[i][j]=date;
+                                        }
+                       }
+      }
+      for(i=1;i<=n;i++)
+      {
+                       for(j=1;j<=n;j++)
+                       {
+                                        printf("%3d ",dist[i][j]);
+                       }
+                       printf("\n");
+      }
+      return(0);
+}

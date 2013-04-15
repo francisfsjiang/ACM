@@ -1,0 +1,49 @@
+#include<stdio.h>
+int main()
+{
+    freopen("in.in","r",stdin);
+    freopen("out.out","w",stdout);
+    int n,x,sum=0,i;
+    int data[5]={0};
+    scanf("%d",&n);
+    for(i=1;i<=n;i++)
+    {
+        scanf("%d",&x);
+        if(x==4)
+        {
+            sum++;
+            continue;
+        }
+        if(data[4-x]>=1)
+        {
+            data[4-x]--;
+            sum++;
+        }
+        else
+        {
+            data[x]++;
+        }
+    }
+    if(data[1]>=4)
+    {
+        sum+=(data[1]-(data[1]%4))/4;
+        data[1]=data[1]%4;
+    }
+    if(data[1]>=2&&data[2]==1)
+    {
+        sum++;
+        data[1]-=2;
+        data[2]-=1;
+    }
+    if(data[1]==1&&data[2]==1)
+    {
+        sum++;
+        data[1]--;
+        data[2]--;
+    }
+    sum+=data[3];
+    sum+=data[1];
+    sum+=data[2];
+    printf("%d",sum);
+    return 0;
+}
