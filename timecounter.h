@@ -6,9 +6,9 @@ using namespace std;
 struct timeval Time_startr,Time_endr;
 double Time_used;
 /*
-struct timeval 
+struct timeval
 {
-	time_t      tv_sec;    
+	time_t      tv_sec;
 	suseconds_t tv_usec;
 }
 */
@@ -21,6 +21,8 @@ void Time_end()
 {
 	gettimeofday(&Time_endr,NULL);
 	Time_used=(Time_endr.tv_sec-Time_startr.tv_sec)+(double)(Time_endr.tv_usec-Time_startr.tv_usec)/1000000;
+	cout<<Time_startr.tv_sec<<" "<<Time_startr.tv_usec<<endl;
+	cout<<Time_endr.tv_sec<<" "<<Time_endr.tv_usec<<endl;
 	cout<<endl<<"Cost time:"<<Time_used<<" s"<<endl;
 }
 

@@ -2,7 +2,7 @@
 #include<string.h>
 #include<stdlib.h>
 #define MAX 50000
-int m,n;
+int m,n,sign;
 int dlxup[MAX];
 int dlxdown[MAX];
 int dlxleft[MAX];
@@ -59,7 +59,7 @@ void insert(int x,int y,int sign)
 
 void makeup()
 {
-        int i,j,k,x,sign;
+        int i,j,k,x;
         for(i=1;i<=n;i++)
         {
             dlxleft[i]=i-1;
@@ -130,6 +130,7 @@ void makeup()
 
 void removec(int x)
 {
+  printf("remove%d\n",x);
     int i,j;
     dlxs[0]--;
     dlxright[dlxleft[x]]=dlxright[x];
@@ -144,6 +145,7 @@ void removec(int x)
 
 void resumec(int x)
 {
+  printf("resum%d\n",x);
     int i,j;
     dlxs[0]++;
     for(i=dlxup[x];i!=x;i=dlxup[i])for(j=dlxleft[i];j!=i;j=dlxleft[j])
@@ -158,6 +160,7 @@ void resumec(int x)
 
 int dance(int x)
 {
+  printf("dance%d\n",x);
     if(dlxright[0]==0)
     {
         return 1;
@@ -198,6 +201,15 @@ int main()
         memset(last,0,sizeof(last));
         memset(head,0,sizeof(head));
         makeup();
+
+        //for(i=0;i<=sign;i++)
+        //{
+          //printf("%d %d %d %d %d\n",i,dlxup[i],dlxdown[i],dlxleft[i],dlxright[i]);
+        //}
+        for(i=0;i<81;i++)
+        {
+          printf("%d\n",ans[i]);
+        }
         if(dance(0))
         {
             for(i=0;i<81;i++)
@@ -206,8 +218,9 @@ int main()
             }
             for(i=1;i<=9;i++)
             {
-                for(j=1;j<=9;j++)printf("%d",sudo[i][j]);
-                printf("\n");
+                printf("{");
+                for(j=1;j<=9;j++)printf("%d,",sudo[i][j]);
+                printf("},\n");
             }
         }
     }

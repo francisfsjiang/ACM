@@ -15,19 +15,27 @@ int main()
     l2=s2.size();
     next[1]=0;
     k=0;
+   // for(i=2;i<=l2;i++)
+   // {
+   //     for(;k>0&&s2[k]!=s2[i-1];k=next[k]);
+   //     if(s2[k]==s2[i-1])k++;
+   //     next[i]=k;
+   // }
     for(i=2;i<=l2;i++)
     {
         for(;k>0&&s2[k]!=s2[i-1];k=next[k]);
         if(s2[k]==s2[i-1])k++;
-        next[i]=k;
+        next[i-1]=k;
     }
+    cout<<s2<<endl;
+    for(int i=1;i<=s2.size();i++)cout<<next[i];
     k=0;
-    for(i=0;i<l1;i++)
-    {
-        for(;k>0&&s1[i]!=s2[k];k=next[k]);
-        if(s1[i]==s2[k])k++;
-        if(k==l2)break;
-    }
+   // for(i=0;i<l1;i++)
+   // {
+   //     for(;k>0&&s1[i]!=s2[k];k=next[k]);
+   //     if(s1[i]==s2[k])k++;
+   //     if(k==l2)break;
+   // }
     cout<<i-l2;
     Time_end();
     return 0;

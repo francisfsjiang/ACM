@@ -83,6 +83,8 @@ void makeup()
         dlxright[0]=1;
         dlxright[level4]=0;
         dlxs[0]=level4;
+
+
         sign=level4;
         lastc=1;
         for(i=1;i<=n;i++)
